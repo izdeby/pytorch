@@ -25,6 +25,7 @@ numpy_type_map = {
     'int16': torch.ShortTensor,
     'int8': torch.CharTensor,
     'uint8': torch.ByteTensor,
+    'bool': torch.BoolTensor,
 }
 
 

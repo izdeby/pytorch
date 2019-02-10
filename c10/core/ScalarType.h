@@ -161,6 +161,7 @@ static inline bool isIntegralType(ScalarType t) {
           t == ScalarType::Char ||
           t == ScalarType::Int ||
           t == ScalarType::Long ||
+          t == ScalarType::Bool ||
           t == ScalarType::Short);
 }
 

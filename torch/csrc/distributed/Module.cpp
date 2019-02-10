@@ -104,6 +104,7 @@ extern PyObject* THCPIntTensorClass;
 extern PyObject* THCPShortTensorClass;
 extern PyObject* THCPCharTensorClass;
 extern PyObject* THCPByteTensorClass;
+extern PyObject* THCPBoolTensorClass;
 #endif
 
 THDTensorDescriptor THDPModule_makeDescriptor(PyObject *obj) {
