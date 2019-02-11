@@ -2,10 +2,12 @@
 #error "You must define TH_GENERIC_FILE before including THGenerateBoolType.h"
 #endif
 
+// TODO: define accreal type once the correct value is known.
 #define scalar_t bool
-#define ureal uint8_t
+#define ureal bool
 #define accreal int64_t
 #define Real Bool
+#define TH_CONVERT_REAL_TO_ACCREAL(_val) (accreal)(_val)
 #define TH_CONVERT_ACCREAL_TO_REAL(_val) (scalar_t)(_val)
 #define TH_REAL_IS_BOOL
 #line 1 TH_GENERIC_FILE
