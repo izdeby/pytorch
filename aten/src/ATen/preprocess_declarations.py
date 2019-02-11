@@ -14,7 +14,8 @@ type_map = {
         'Char',
         'Short',
         'Int',
-        'Long'
+        'Long',
+        'Bool'
     ],
 }
 

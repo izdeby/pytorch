@@ -8,4 +8,6 @@
 #include <TH/generic/THBlas.h>
 #include <TH/THGenerateAllTypes.h>
 
+#include <TH/generic/THBlas.h>
+#include <TH/THGenerateBoolType.h>
 #endif
