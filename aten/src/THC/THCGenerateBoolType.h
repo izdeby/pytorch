@@ -5,6 +5,7 @@
 // TODO: define accreal type once the correct value is known.
 #define scalar_t bool
 #define ureal bool
+#define accreal int64_t
 #define Real Bool
 #define CReal CudaBool
 #define THC_REAL_IS_BOOL
@@ -12,6 +13,7 @@
 #include THC_GENERIC_FILE
 #undef scalar_t
 #undef ureal
+#define accreal int64_t
 #undef Real
 #undef CReal
 #undef THC_REAL_IS_BOOL
