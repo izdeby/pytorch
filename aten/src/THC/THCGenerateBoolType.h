@@ -2,7 +2,6 @@
 #error "You must define THC_GENERIC_FILE before including THCGenerateBoolType.h"
 #endif
 
-// TODO: define accreal type once the correct value is known.
 #define scalar_t bool
 #define ureal bool
 #define accreal int64_t
