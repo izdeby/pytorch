@@ -3,6 +3,7 @@
   cname: set
   variants: function
   cpu_half: True
+  cpu_bool: True
   device_guard: False
   return: argument 0
   options:
@@ -53,6 +54,7 @@
   variants:
     - function
   cpu_half: True
+  cpu_bool: True
   device_guard: False
   return: bool
   arguments:
@@ -119,6 +121,7 @@
   variants:
     - function
   cpu_half: True
+  cpu_bool: True
   arguments:
     - THTensor* self
 ]]
@@ -237,6 +240,7 @@
   variants:
     - function
   cpu_half: True
+  cpu_bool: True
   device_guard: False
   return: argument 0
   arguments:
@@ -2840,6 +2844,7 @@
   name: _th_alias
   return: THTensor*
   cpu_half: True
+  cpu_bool: True
   variants:
     - function
   options:
@@ -2864,6 +2869,7 @@
   cname: catArray
   variants: [function]
   cpu_half: True
+  cpu_bool: True
   return: self
   arguments:
     - arg: THTensor* self
