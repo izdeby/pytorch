@@ -1752,6 +1752,7 @@
   name: _th_zero_
   cname: zero
   return: self
+  cpu_bool: True
   variants:
     - function
   arguments:
