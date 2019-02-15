@@ -2,6 +2,8 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorAssignments.cpp"
 #else
 
+#include "ATen/cuda/CUDAContext.h"
+
 void THCTensor_(fill)(THCState* state, THCTensor *self_, scalar_t value)
 {
   THCAssertSameGPU(THCTensor_(checkGPU)(state, 1, self_));
@@ -54,4 +56,5 @@ void THCTensor_(eye)(THCState *state, THCTensor *self_, int64_t n, int64_t m)
   THCTensor_(fill)(state, diag, ScalarConvert<int, scalar_t>::to(1));
   THCTensor_(free)(state, diag);
 }
+
 #endif
