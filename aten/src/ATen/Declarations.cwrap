@@ -38,6 +38,7 @@
   name: _th_fill_
   return: self
   cname: fill
+  cpu_bool: True
   variants: function
   options:
     - arguments:
@@ -2621,6 +2622,7 @@
     - CPU
     - CUDA
   return: self
+  cpu_bool: True
   variants: function
   options:
     - cname: random
