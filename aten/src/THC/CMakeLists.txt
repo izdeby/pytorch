@@ -103,6 +103,7 @@ INSTALL(FILES
           THCGenerator.hpp
           THCTensor.hpp
           THCStorage.hpp
+          THCTensorAssignments.cpp
           DESTINATION "${ATEN_INSTALL_INCLUDE_SUBDIR}/THC")
 
 INSTALL(FILES
@@ -113,6 +114,8 @@ INSTALL(FILES
           generic/THCTensor.cu
           generic/THCTensor.h
           generic/THCTensor.hpp
+          generic/THCTensorAssignments.h
+          generic/THCTensorAssignments.cpp
           generic/THCStorageCopy.cpp
           generic/THCStorageCopy.cu
           generic/THCStorageCopy.h

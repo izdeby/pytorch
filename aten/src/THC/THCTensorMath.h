@@ -49,4 +49,7 @@
 #include <THC/generic/THCTensorTopK.h>
 #include <THC/THCGenerateAllTypes.h>
 
+#include <THC/generic/THCTensorAssignments.h>
+#include <THC/THCGenerateAllTypes.h>
+
 #endif
