@@ -143,6 +143,7 @@
       AT_PRIVATE_CASE_TYPE(at::ScalarType::Long, int64_t, __VA_ARGS__)       \
       AT_PRIVATE_CASE_TYPE(at::ScalarType::Short, int16_t, __VA_ARGS__)      \
       AT_PRIVATE_CASE_TYPE(at::ScalarType::Half, at::Half, __VA_ARGS__)      \
+      AT_PRIVATE_CASE_TYPE(at::ScalarType::Bool, bool, __VA_ARGS__)          \
       AT_PRIVATE_CASE_TYPE(                                                  \
           at::ScalarType::ComplexFloat, std::complex<float>, __VA_ARGS__)    \
       AT_PRIVATE_CASE_TYPE(                                                  \
