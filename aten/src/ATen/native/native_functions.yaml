@@ -837,6 +837,7 @@
   variants: method
   cpu_bool: True
   cpu_half: True
+  cpu_bool: True
   device_guard: False
   dispatch:
     CPU: resize_cpu_

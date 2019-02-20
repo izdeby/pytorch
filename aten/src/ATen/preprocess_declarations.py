@@ -69,10 +69,8 @@ def process_types_and_backends(option):
     if not option.get('cpu_bool', False):
         pairs.discard(('CPU', 'Bool'))
 
-    # Temporary hack that will be removed in the next PR which will enable
-    # bool tensor for CUDA
-    pairs.discard(('CUDA', 'Bool'))
-
+    if not option.get('enable_for_bool', False):
+        pairs.discard(('CUDA', 'Bool'))
     # sort the result for easy reading
     option['backend_type_pairs'] = sorted([p for p in pairs])
 

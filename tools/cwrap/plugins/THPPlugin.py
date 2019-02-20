@@ -444,6 +444,12 @@ ${cpu}
                     defined_if += ' && (' + declaration['defined_if'] + ')'
                 declaration['defined_if'] = defined_if
 
+            if not declaration.get('cpu_bool', False):
+                defined_if = '!defined(TH_REAL_IS_BOOL)'
+                if 'defined_if' in declaration:
+                    defined_if += ' && (' + declaration['defined_if'] + ')'
+                declaration['defined_if'] = defined_if
+
             if declaration.get('only_register', False):
                 continue
 
