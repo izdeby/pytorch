@@ -4,6 +4,8 @@
 
 #include "ATen/cuda/CUDAContext.h"
 
+#if !defined(THC_REAL_IS_BOOL)
+
 #define ERROR_ONLY_FP_TYPES(func) \
   THError("%s for CUDA tensors only supports floating-point types. Try converting the tensors with .float()", func);
 
@@ -968,5 +970,7 @@ void THCTensor_(btrisolve)(THCState *state, THCTensor *rb_, THCTensor *b,
   THError("btrisolve for CUDA tensors is only supported for floats and doubles");
 #endif
 }
+
+#endif
 
 #endif

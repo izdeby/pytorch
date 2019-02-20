@@ -2,6 +2,8 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorSort.cu"
 #else
 
+#if !defined (THC_REAL_IS_BOOL)
+
 // In alignment with default sort on a c++ map, this function
 // will permute key and value tensors identically, and
 // in such a way that the 'key' tensor is ordered numerically
@@ -328,5 +330,7 @@ void THCTensor_(sort)(THCState* state,
 
   THCudaCheck(cudaGetLastError());
 }
+
+#endif
 
 #endif

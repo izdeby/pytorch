@@ -16,3 +16,6 @@
 
 #include <THC/generic/THCTensorMode.cu>
 #include <THC/THCGenerateAllTypes.h>
+
+#include <THC/generic/THCTensorMode.cu>
+#include <THC/THCGenerateBoolType.h>

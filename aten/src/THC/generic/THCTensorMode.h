@@ -2,6 +2,8 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorMode.h"
 #else
 
+#if !defined (THC_REAL_IS_BOOL)
+
 /* Returns the mode, and index of the mode, for the set of values
  * along a given dimension in the input tensor. */
 THC_API void THCTensor_(mode)(THCState *state,
@@ -10,5 +12,7 @@ THC_API void THCTensor_(mode)(THCState *state,
                               THCTensor *input,
                               int dimension,
                               int keepdim);
+
+#endif
 
 #endif // THC_GENERIC_FILE

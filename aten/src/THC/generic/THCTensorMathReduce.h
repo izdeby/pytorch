@@ -2,6 +2,10 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorMathReduce.h"
 #else
 
+THC_API accreal THCTensor_(sumall)(THCState *state, THCTensor *self);
+
+#if !defined(THC_REAL_IS_BOOL)
+
 #if defined(THC_REAL_IS_FLOAT) || defined(THC_REAL_IS_DOUBLE) || defined(THC_REAL_IS_HALF)
 
 THC_API void THCTensor_(renorm)(THCState *state, THCTensor* self, THCTensor* src, scalar_t value, int dimension, scalar_t max_norm);
@@ -19,7 +23,6 @@ THC_API void THCTensor_(sum)(THCState *state, THCTensor *self, THCTensor *src, i
 THC_API void THCTensor_(prod)(THCState *state, THCTensor *self, THCTensor *src, int dim, int keepdim);
 THC_API void THCTensor_(mean)(THCState *state, THCTensor *self, THCTensor *src, int dim, int keepdim);
 
-THC_API accreal THCTensor_(sumall)(THCState *state, THCTensor *self);
 THC_API accreal THCTensor_(prodall)(THCState *state, THCTensor *self);
 THC_API accreal THCTensor_(meanall)(THCState *state, THCTensor *self);
 
@@ -43,5 +46,7 @@ THC_API void THCTensor_(median)(THCState *state,
 
 THC_API accreal THCTensor_(dist)(THCState *state, THCTensor *self, THCTensor *src,
                               scalar_t value);
+
+#endif
 
 #endif

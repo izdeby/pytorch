@@ -2,6 +2,8 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorMathScan.cu"
 #else
 
+#if !defined (THC_REAL_IS_BOOL)
+
 #ifndef THC_REAL_IS_HALF
 template<class BinaryFunction>
 __host__ void THCTensor_(scanThrust)(
@@ -118,5 +120,7 @@ void THCTensor_(cumprod)(THCState *state, THCTensor *self, THCTensor *src, int d
   return THCTensor_(scanDim)(state, self, src, dimension,
                              ScalarConvert<float, scalar_t>::to(1.0), MulOp<scalar_t>());
 }
+
+#endif
 
 #endif

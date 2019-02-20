@@ -2,6 +2,8 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorScatterGather.cu"
 #else
 
+#if !defined (THC_REAL_IS_BOOL)
+
 #define RUN(TYPE, DIMS, REAL)                                           \
   THCudaTensor_gatherKernel<TYPE, REAL, DIMS>                                \
   <<<grid, block, 0, THCState_getCurrentStreamOnDevice(state, curDevice)>>>(               \
@@ -381,5 +383,7 @@ THCTensor_(scatterFill)(THCState* state, THCTensor *tensor,
 }
 
 #undef RUN
+
+#endif
 
 #endif

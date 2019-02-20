@@ -164,6 +164,28 @@ struct THCNumerics<int64_t> {
   static inline __host__ __device__  bool isinf(int64_t a) { return false; }
 };
 
+template <>
+struct THCNumerics<bool> {
+  static inline __host__ __device__ bool neg(bool a) { return !a; }
+  static inline __host__ __device__ bool abs(bool a) { return false; }
+  static inline __host__ __device__ bool eq(bool a, bool b) { return false; }
+  static inline __host__ __device__ bool lt(bool a, bool b) { return false; }
+  static inline __host__ __device__ bool le(bool a, bool b) { return false; }
+  static inline __host__ __device__ bool gt(bool a, bool b) { return false; }
+  static inline __host__ __device__ bool ge(bool a, bool b) { return false; }
+  static inline __host__ __device__ bool ne(bool a, bool b) { return false; }
+  static inline __host__ __device__ bool sub(bool a, bool b) { return false; }
+  static inline __host__ __device__ bool mul(bool a, bool b) { return false; }
+  static inline __host__ __device__ bool pow(bool a, bool b) { return false; }
+  static inline __host__ __device__ bool add(bool a, bool b) { return false; }
+  static inline __host__ __device__ bool div(bool a, bool b) { return false; }
+  static inline __host__ __device__  bool isnan(bool a) { return false; }
+  static inline __host__ __device__  bool isinf(bool a) { return false; }
+
+  static inline __host__ __device__ bool lower_bound() { return false; }
+  static inline __host__ __device__ bool upper_bound() { return true; }
+};
+
 // DEPRECATED: use math functions from std and NumericLimits.cuh
 template <>
 struct THCNumerics<at::Half> {

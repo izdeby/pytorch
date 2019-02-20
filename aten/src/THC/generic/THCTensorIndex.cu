@@ -4,6 +4,8 @@
 
 #include "ATen/cuda/CUDAContext.h"
 
+#if !defined(TH_REAL_IS_BOOL) /* non bool only part */
+
 // Check tensor dimensions for index operations, and return the slice size.
 // src can be nullptr in case of indexFill: in that case it is ignored.
 static ptrdiff_t THCTensor_(getSliceSize)(THCState *state, THCTensor *dst,
@@ -652,5 +654,7 @@ void THCTensor_(indexSelect)(THCState *state, THCTensor *dst, THCTensor *src, in
 #undef SMALL_INDEX
 #undef LARGE_INDEX
 }
+
+#endif
 
 #endif
