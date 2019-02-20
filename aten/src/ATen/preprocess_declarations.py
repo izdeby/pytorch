@@ -14,7 +14,8 @@ type_map = {
         'Char',
         'Short',
         'Int',
-        'Long'
+        'Long',
+        'Bool'
     ],
 }
 
@@ -65,6 +66,8 @@ def process_types_and_backends(option):
     if not option.get('cpu_half', False):
         pairs.discard(('CPU', 'Half'))
 
+    if not option.get('cpu_bool', False):
+        pairs.discard(('CPU', 'Bool'))
     # sort the result for easy reading
     option['backend_type_pairs'] = sorted([p for p in pairs])
 

@@ -27,6 +27,8 @@ void THTensor_(zero)(THTensor *r_)
   THTensor_(fill)(r_, 0);
 }
 
+#if !defined(TH_REAL_IS_BOOL) /* non bool only part */
+
 void THTensor_(maskedFill)(THTensor *tensor, THByteTensor *mask, scalar_t value)
 {
 #ifdef _OPENMP
@@ -1001,5 +1003,7 @@ void THTensor_(bitand)(THTensor *r_, THTensor *t, scalar_t value)
   }
 #endif
 }
+
+#endif /* non bool only part */
 
 #endif /* TH_GENERIC_FILE */

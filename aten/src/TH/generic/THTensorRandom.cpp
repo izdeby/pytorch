@@ -17,6 +17,8 @@ void THTensor_(random)(THTensor *self, THGenerator *_generator)
   std::lock_guard<std::mutex> lock(_generator->mutex);
 #if defined(TH_REAL_IS_BYTE)
   TH_TENSOR_APPLY(scalar_t, self, *self_data = (uint8_t)(THRandom_random(_generator) % (UINT8_MAX + 1)););
+#elif defined(TH_REAL_IS_BOOL)
+  TH_TENSOR_APPLY(scalar_t, self, *self_data = (bool)(THRandom_random(_generator) % 3););
 #elif defined(TH_REAL_IS_CHAR)
   TH_TENSOR_APPLY(scalar_t, self, *self_data = (int8_t)(THRandom_random(_generator) % (INT8_MAX + 1)););
 #elif defined(TH_REAL_IS_SHORT)
