@@ -5,6 +5,8 @@
 TH_API void THTensor_(fill)(THTensor *r_, scalar_t value);
 TH_API void THTensor_(zero)(THTensor *r_);
 
+#if !defined(TH_REAL_IS_BOOL) /* non bool only part */
+
 TH_API void THTensor_(maskedFill)(THTensor *tensor, THByteTensor *mask, scalar_t value);
 TH_API void THTensor_(maskedCopy)(THTensor *tensor, THByteTensor *mask, THTensor* src);
 TH_API void THTensor_(maskedSelect)(THTensor *tensor, THTensor* src, THByteTensor *mask);
@@ -189,6 +191,8 @@ TH_API accreal THTensor_(stdall)(THTensor *self, int biased);
 TH_API accreal THTensor_(normall)(THTensor *t, scalar_t value);
 
 TH_API void THTensor_(dirichlet_grad)(THTensor *self, THTensor *x, THTensor *alpha, THTensor *total);
+#endif
+
 #endif
 
 #endif
