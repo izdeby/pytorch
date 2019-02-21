@@ -2,6 +2,8 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorTopK.h"
 #else
 
+#if !defined (THC_REAL_IS_BOOL)
+
 /* Returns the set of all kth smallest (or largest) elements, depending */
 /* on `dir` */
 THC_API void THCTensor_(topk)(THCState* state,
@@ -9,5 +11,7 @@ THC_API void THCTensor_(topk)(THCState* state,
                                THCudaLongTensor* indices,
                                THCTensor* input,
                                int64_t k, int dim, int dir, int sorted);
+
+#endif
 
 #endif // THC_GENERIC_FILE
