@@ -2,8 +2,6 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorMode.cu"
 #else
 
-#if !defined (THC_REAL_IS_BOOL)
-
 void THCTensor_(calculateMode)(THCState *state,
                                THCTensor *values,
                                THCudaLongTensor *indices,
@@ -319,7 +317,5 @@ void THCTensor_(mode)(THCState *state,
 
 #undef MAX_GRID_SIZE
 #undef MAX_BLOCK_SIZE
-
-#endif
 
 #endif

@@ -2,7 +2,6 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorMasked.cu"
 #else
 
-#if !defined (THC_REAL_IS_BOOL)
 
 void THCTensor_(maskedFill)(THCState* state,
                             THCTensor *tensor, THCudaByteTensor *mask, scalar_t value)
@@ -176,7 +175,5 @@ void THCTensor_(maskedSelectByte)(THCState* state,
   THCTensor_(maskedSelect)(state, tensor, src, maskCuda);
   THCudaByteTensor_free(state, maskCuda);
 }
-
-#endif
 
 #endif

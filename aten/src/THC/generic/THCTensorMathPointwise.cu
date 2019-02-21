@@ -2,8 +2,6 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorMathPointwise.cu"
 #else
 
-#if !defined(TH_REAL_IS_BOOL) /* non bool only part */
-
 #define IMPLEMENT_CUDA_TENSOR_BASIC_FUNC_(NAME, CFUNC, REAL)             \
   struct Tensor_##NAME##_##REAL##_Op {                                  \
     __device__ __forceinline__ void operator()(scalar_t* out, scalar_t* in) const { \
@@ -661,6 +659,4 @@ void THCTensor_(cbitxor)(THCState* state, THCTensor *self_, THCTensor *src1, THC
   THCudaCheck(cudaGetLastError());
 #endif
 }
-#endif
-
 #endif

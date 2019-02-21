@@ -12,6 +12,6 @@ THC_API void THCTensor_(topk)(THCState* state,
                                THCTensor* input,
                                int64_t k, int dim, int dir, int sorted);
 
-#endif
-
 #endif // THC_GENERIC_FILE
+
+#endif

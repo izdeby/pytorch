@@ -2,8 +2,6 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorMathPairwise.cu"
 #else
 
-#if !defined (THC_REAL_IS_BOOL)
-
 void THCTensor_(add)(THCState *state, THCTensor *self_, THCTensor *src_, scalar_t value)
 {
   THCAssertSameGPU(THCTensor_(checkGPU)(state, 2, self_, src_));
@@ -284,7 +282,5 @@ void THCTensor_(bitxor)(THCState* state, THCTensor *self_, THCTensor *src_, scal
   THCudaCheck(cudaGetLastError());
 #endif
 }
-
-#endif
 
 #endif

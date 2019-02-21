@@ -2,8 +2,6 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorMathCompareT.cu"
 #else
 
-#if !defined (THC_REAL_IS_BOOL)
-
 void THCTensor_(ltTensor)(THCState *state, THCudaByteTensor *self_, THCTensor *src1, THCTensor *src2)
 {
   THCAssertSameGPU(THCTensor_(checkGPU)(state, 3, self_, src1, src2));
@@ -99,7 +97,5 @@ void THCTensor_(neTensorT)(THCState *state, THCTensor *self_, THCTensor *src1, T
                                 TensorNEOp<scalar_t,
                                 scalar_t>());
 }
-
-#endif
 
 #endif

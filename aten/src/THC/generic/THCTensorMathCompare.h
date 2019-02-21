@@ -2,8 +2,6 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorMathCompare.h"
 #else
 
-#if !defined (THC_REAL_IS_BOOL)
-
 THC_API void THCTensor_(ltValue)(THCState *state, THCudaByteTensor *self_, THCTensor *src, scalar_t value);
 THC_API void THCTensor_(gtValue)(THCState *state, THCudaByteTensor *self_, THCTensor *src, scalar_t value);
 THC_API void THCTensor_(leValue)(THCState *state, THCudaByteTensor *self_, THCTensor *src, scalar_t value);
@@ -18,7 +16,5 @@ THC_API void THCTensor_(geValueT)(THCState *state, THCTensor *self_, THCTensor *
 THC_API void THCTensor_(eqValueT)(THCState *state, THCTensor *self_, THCTensor *src, scalar_t value);
 THC_API void THCTensor_(neValueT)(THCState *state, THCTensor *self_, THCTensor *src, scalar_t value);
 
-
-#endif
 
 #endif

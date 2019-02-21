@@ -2,8 +2,6 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorMathPointwise.h"
 #else
 
-#if !defined(THC_REAL_IS_BOOL)
-
 THC_API void THCTensor_(pow)(THCState *state, THCTensor *self, THCTensor *src, scalar_t value);
 THC_API void THCTensor_(tpow)(THCState *state, THCTensor *self, scalar_t value, THCTensor *src);
 THC_API void THCTensor_(cpow)(THCState *state, THCTensor *self, THCTensor *src1, THCTensor *src2);
@@ -71,5 +69,4 @@ THC_API void THCTensor_(cbitxor)(THCState *state, THCTensor *self, THCTensor *sr
 THC_API void THCTensor_(addcmul)(THCState *state, THCTensor *self, THCTensor* t, scalar_t value, THCTensor *src1, THCTensor *src2);
 THC_API void THCTensor_(addcdiv)(THCState *state, THCTensor *self, THCTensor* t, scalar_t value, THCTensor *src1, THCTensor *src2);
 
-#endif
 #endif

@@ -3,7 +3,7 @@
   cname: set
   variants: function
   cpu_half: True
-  cpu_bool: True
+  enable_for_bool: True
   device_guard: False
   return: argument 0
   options:
@@ -39,7 +39,7 @@
   return: self
   cname: fill
   variants: function
-  cpu_bool: True
+  enable_for_bool: True
   options:
     - arguments:
       - THTensor* self
@@ -55,7 +55,7 @@
   variants:
     - function
   cpu_half: True
-  cpu_bool: True
+  enable_for_bool: True
   device_guard: False
   return: bool
   arguments:
@@ -122,7 +122,7 @@
   variants:
     - function
   cpu_half: True
-  cpu_bool: True
+  enable_for_bool: True
   arguments:
     - THTensor* self
 ]]
@@ -241,7 +241,7 @@
   variants:
     - function
   cpu_half: True
-  cpu_bool: True
+  enable_for_bool: True
   device_guard: False
   return: argument 0
   arguments:
@@ -1753,7 +1753,7 @@
   name: _th_zero_
   cname: zero
   return: self
-  cpu_bool: True
+  enable_for_bool: True
   variants:
     - function
   arguments:
@@ -2622,7 +2622,7 @@
     - CPU
     - CUDA
   return: self
-  cpu_bool: True
+  enable_for_bool: True
   variants: function
   options:
     - cname: random
@@ -2847,7 +2847,7 @@
   name: _th_alias
   return: THTensor*
   cpu_half: True
-  cpu_bool: True
+  enable_for_bool: True
   variants:
     - function
   options:

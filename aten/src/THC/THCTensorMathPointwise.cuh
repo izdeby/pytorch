@@ -10,8 +10,6 @@
 #include <THC/THCNumerics.cuh>
 #include <THC/THCReduce.cuh>
 
-#if !defined(THC_REAL_IS_BOOL)
-
 template <typename T>
 struct TensorATan2Op {
   __device__ __forceinline__ void operator()(T* out, T* a, T* b) {
@@ -661,7 +659,5 @@ struct TensorTrigammaOp {
     *out = ScalarConvert<compute_type, T>::to(sign * result);
   }
 };
-
-#endif
 
 #endif // THC_TENSORMATH_POINTWISE_CUH

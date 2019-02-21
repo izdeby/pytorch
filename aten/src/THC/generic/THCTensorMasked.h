@@ -2,8 +2,6 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorMasked.h"
 #else
 
-#if !defined (THC_REAL_IS_BOOL)
-
 THC_API void THCTensor_(maskedFill)(THCState *state,
                                     THCTensor *tensor,
                                     THCudaByteTensor *mask,
@@ -36,7 +34,5 @@ THC_API void THCTensor_(maskedSelectByte)(THCState *state,
                                           THCTensor *tensor,
                                           THCTensor *src,
                                           THByteTensor *mask);
-
-#endif
 
 #endif

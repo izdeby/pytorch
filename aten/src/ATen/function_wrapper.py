@@ -490,7 +490,7 @@ FunctionOption = TypedDict('FunctionOption', {
     'device_guard_declaration': str,
     'with_gil': bool,
     'cpu_half': bool,
-    'cpu_bool': bool,
+    'enable_for_bool': bool,
     'deprecated': bool,
     'cpu_bool': bool,
     # See Note [field_name versus name]

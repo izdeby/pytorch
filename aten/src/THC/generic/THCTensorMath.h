@@ -4,7 +4,6 @@
 
 THC_API void THCTensor_(fill)(THCState *state, THCTensor *self, scalar_t value);
 THC_API void THCTensor_(zero)(THCState *state, THCTensor *self);
-THC_API void THCTensor_(eye)(THCState *state, THCTensor *self, int64_t n, int64_t k);
 
 #if !defined(TH_REAL_IS_BOOL) /* non bool only part */
 
@@ -17,6 +16,7 @@ THC_API void THCTensor_(nonzero)(THCState* state, THCudaLongTensor *tensor, THCT
 
 THC_API void THCTensor_(triu)(THCState *state, THCTensor *self, THCTensor *src, int64_t k);
 THC_API void THCTensor_(diag)(THCState *state, THCTensor *self, THCTensor *src, int64_t k);
+THC_API void THCTensor_(eye)(THCState *state, THCTensor *self, int64_t n, int64_t k);
 
 THC_API accreal THCTensor_(trace)(THCState *state, THCTensor *self);
 

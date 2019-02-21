@@ -66,7 +66,7 @@ def process_types_and_backends(option):
     if not option.get('cpu_half', False):
         pairs.discard(('CPU', 'Half'))
 
-    if not option.get('cpu_bool', False):
+    if not option.get('enable_for_bool', False):
         pairs.discard(('CPU', 'Bool'))
 
     if not option.get('enable_for_bool', False):
