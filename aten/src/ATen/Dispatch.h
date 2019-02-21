@@ -126,4 +126,3 @@ struct MyTemplate<at::ScalarType::Bool> {
       default:                                                                                  \
         AT_ERROR(#NAME, " not implemented for '", the_type.toString(), "'");                    \
     }                                                                                           \
-  }()
