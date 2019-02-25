@@ -492,7 +492,6 @@ FunctionOption = TypedDict('FunctionOption', {
     'cpu_half': bool,
     'enable_for_bool': bool,
     'deprecated': bool,
-    'cpu_bool': bool,
     # See Note [field_name versus name]
     'field_name': str,
     'formals_list': List[AtFormal],

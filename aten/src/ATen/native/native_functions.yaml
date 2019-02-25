@@ -835,7 +835,6 @@
 - func: resize_(Tensor(a!) self, int[] size) -> Tensor(a!)
   matches_jit_signature: True
   variants: method
-  cpu_bool: True
   cpu_half: True
   enable_for_bool: True
   device_guard: False

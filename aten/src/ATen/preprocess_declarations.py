@@ -71,6 +71,7 @@ def process_types_and_backends(option):
 
     if not option.get('enable_for_bool', False):
         pairs.discard(('CUDA', 'Bool'))
+
     # sort the result for easy reading
     option['backend_type_pairs'] = sorted([p for p in pairs])
 

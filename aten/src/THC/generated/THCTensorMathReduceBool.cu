@@ -1,4 +1,5 @@
-#include "../THCTensorMathReduce.cuh"
-#include "THCTensor.hpp"
-#include "../generic/THCTensorMathReduce.cu"
-#include "../THCGenerateBoolType.h"
+#include <THC/THCTensorMathReduce.cuh>
+#include <THC/THCTensor.hpp>
+
+#include <THC/generic/THCTensorMathReduce.cu>
+#include <THC/THCGenerateBoolType.h>

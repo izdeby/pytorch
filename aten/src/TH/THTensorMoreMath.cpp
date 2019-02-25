@@ -5,6 +5,3 @@
 
 #include <TH/generic/THTensorMoreMath.cpp>
 #include <TH/THGenerateAllTypes.h>
-
-#include <TH/generic/THTensorMoreMath.cpp>
-#include <TH/THGenerateBoolType.h>

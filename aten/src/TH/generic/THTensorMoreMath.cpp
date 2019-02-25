@@ -5,28 +5,6 @@
 #include <TH/generic/THTensorApply.hpp>
 #include <TH/THGenerator.hpp>
 
-void THTensor_(eye)(THTensor *r_, int64_t n, int64_t m)
-{
-  scalar_t *r__data;
-  int64_t i, sz;
-
-  THArgCheck(n > 0, 1, "invalid argument");
-
-  if(m <= 0)
-    m = n;
-
-  THTensor_(resize2d)(r_, n, m);
-  THTensor_(zero)(r_);
-
-  i = 0;
-  r__data = r_->data<scalar_t>();
-  sz = THMin(THTensor_(size)(r_, 0), THTensor_(size)(r_, 1));
-  for(i = 0; i < sz; i++)
-    r__data[i*(r_->stride(0)+r_->stride(1))] = 1;
-}
-
-#if !defined(TH_REAL_IS_BOOL) /* non bool part */
-
 void THTensor_(baddbmm)(THTensor *result, scalar_t beta, THTensor *t, scalar_t alpha, THTensor *batch1, THTensor *batch2)
 {
   int64_t batch;
@@ -619,6 +597,26 @@ void THTensor_(diag)(THTensor *r_, THTensor *t, int k)
     for(i = 0; i < sz; i++)
       r__data[i*r__stride_0] = t_data[i*(t_stride_0+t_stride_1)];
   }
+}
+
+void THTensor_(eye)(THTensor *r_, int64_t n, int64_t m)
+{
+  scalar_t *r__data;
+  int64_t i, sz;
+
+  THArgCheck(n > 0, 1, "invalid argument");
+
+  if(m <= 0)
+    m = n;
+
+  THTensor_(resize2d)(r_, n, m);
+  THTensor_(zero)(r_);
+
+  i = 0;
+  r__data = r_->data<scalar_t>();
+  sz = THMin(THTensor_(size)(r_, 0), THTensor_(size)(r_, 1));
+  for(i = 0; i < sz; i++)
+    r__data[i*(r_->stride(0)+r_->stride(1))] = 1;
 }
 
 void THTensor_(randperm)(THTensor *r_, THGenerator *_generator, int64_t n)
@@ -1980,9 +1978,5 @@ void THTensor_(dirichlet_grad)(THTensor *self, THTensor *x, THTensor *alpha, THT
 #undef TH_MATH_NAME
 #endif /* floating point only part */
 #undef IS_NONZERO
-
-
-
-#endif /* non bool part */
 
 #endif /* TH_GENERIC_FILE */
