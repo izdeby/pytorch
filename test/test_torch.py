@@ -2366,6 +2366,9 @@ class _TestTorchMixin(object):
         expected = torch.tensor([[0.]], dtype=torch.float16)
         self.assertEqual(halfTensor, expected)
 
+        halfTensor = torch.zeros(1, 1, dtype=torch.half)
+        self.assertEqual(halfTensor, torch.tensor([[0.]], dtype=torch.float16))
+
     def test_zeros_like(self):
         expected = torch.zeros(100, 100)
 
