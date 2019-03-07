@@ -2549,6 +2549,8 @@
 - func: zero_(Tensor(a!) self) -> Tensor(a!)
   matches_jit_signature: True
   variants: method, function
+  dispatch:
+    CPU: zero_out_cpu
 
 - func: sub(Tensor self, Tensor other, *, Scalar alpha=1, Tensor(a!) out) -> Tensor(a!)
   matches_jit_signature: True

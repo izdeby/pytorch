@@ -55,14 +55,6 @@ Tensor pow(const Tensor& self, Scalar exponent) {
   }
 }
 
-Tensor& zero_(Tensor& self) {
-  if (_has_native(self)) {
-    return native_zero_(self);
-  } else {
-    return legacy::th::_th_zero_(self);
-  }
-}
-
 // Note [Multiple dispatch to sparse]
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // In an ideal world, we would use direct support for multiple dispatch to

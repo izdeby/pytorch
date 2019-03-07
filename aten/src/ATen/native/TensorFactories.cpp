@@ -194,6 +194,8 @@ Tensor& eye_out_cpu(Tensor& result, int64_t n, int64_t m) {
   return result;
 }
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ fill ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ full ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Tensor full(IntArrayRef size, Scalar fill_value, const TensorOptions& options) {
@@ -559,6 +561,15 @@ Tensor triu_indices_cpu(
   });
 
   return result;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ zero ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tensor& zero_(Tensor& self) {
+  return native::zero_out_cpu(self);
+}
+
+Tensor& zero_out_cpu(Tensor& self) {
+  return self.fill_(0);
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ zeros ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
