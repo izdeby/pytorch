@@ -63,6 +63,9 @@ def process_types_and_backends(option):
             pairs.discard(('CUDA', 'Half'))
 
     # special case remove Half and Bool for cpu unless it is explicitly enabled
+    if not option.get('cpu_half', False):
+        pairs.discard(('CPU', 'Half'))
+
     if not option.get('enable_for_bool', False):
         pairs.discard(('CPU', 'Bool'))
 

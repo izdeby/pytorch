@@ -184,6 +184,7 @@ struct THCNumerics<bool> {
   static inline __host__ __device__ bool pow(bool a, bool b) { return false; }
   static inline __host__ __device__ bool add(bool a, bool b) { return false; }
   static inline __host__ __device__ bool div(bool a, bool b) { return false; }
+  static inline __device__ bool eq_with_nan(bool a, bool b) { return a == b; }
   static inline __host__ __device__  bool isnan(bool a) { return false; }
   static inline __host__ __device__  bool isinf(bool a) { return false; }
 
