@@ -2,8 +2,6 @@
 #define THC_GENERIC_FILE "THC/generic/THCTensorTopK.cu"
 #else
 
-#if !defined (THC_REAL_IS_BOOL)
-
 void THCTensor_(topk)(THCState* state,
                       THCTensor *topK,
                       THCudaLongTensor *indices,
@@ -187,7 +185,5 @@ void THCTensor_(topk)(THCState* state,
 
   THCudaCheck(cudaGetLastError());
 }
-
-#endif
 
 #endif // THC_GENERIC_FILE

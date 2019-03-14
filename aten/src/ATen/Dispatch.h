@@ -99,7 +99,6 @@ struct MyTemplate<at::ScalarType::Bool> {
       AT_PRIVATE_CASE_TYPE(at::ScalarType::Int, int32_t, __VA_ARGS__)             \
       AT_PRIVATE_CASE_TYPE(at::ScalarType::Long, int64_t, __VA_ARGS__)            \
       AT_PRIVATE_CASE_TYPE(at::ScalarType::Short, int16_t, __VA_ARGS__)           \
-      AT_PRIVATE_CASE_TYPE(at::ScalarType::Bool, bool, __VA_ARGS__)           \
       AT_PRIVATE_CASE_TYPE(SCALARTYPE, MyTemplate<SCALARTYPE>::type, __VA_ARGS__) \
       default:                                                                    \
         AT_ERROR(#NAME, " not implemented for '", toString(TYPE), "'");           \

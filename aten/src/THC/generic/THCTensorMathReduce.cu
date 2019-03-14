@@ -17,7 +17,7 @@ accreal THCTensor_(sumall)(THCState *state, THCTensor *self) {
   return val;
 }
 
-#if !defined(THC_REAL_IS_BOOL)
+//#if !defined(THC_REAL_IS_BOOL)
 
 void THCTensor_(prod)(THCState* state, THCTensor *self, THCTensor *src, int dimension, int keepdim) {
   THCAssertSameGPU(THCTensor_(checkGPU)(state, 2, self, src));
@@ -435,4 +435,4 @@ void THCTensor_(min)(THCState *state,
 }
 
 #endif
-#endif
+//#endif
