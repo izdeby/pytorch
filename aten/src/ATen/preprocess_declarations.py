@@ -61,7 +61,6 @@ def process_types_and_backends(option):
     for arg in option.get('arguments', []):
         if arg['type'] == 'THSTensor*':
             pairs.discard(('CUDA', 'Half'))
-            pairs.discard(('CUDA', 'Bool'))
 
     # special case remove Half and Bool for cpu unless it is explicitly enabled
     if not option.get('cpu_half', False):

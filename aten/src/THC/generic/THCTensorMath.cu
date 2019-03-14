@@ -35,7 +35,7 @@ void THCTensor_(zero)(THCState *state, THCTensor *self_)
   THCudaCheck(cudaGetLastError());
 }
 
-#if !defined(TH_REAL_IS_BOOL) /* non bool only part */
+#if !defined(THC_REAL_IS_BOOL) /* non bool only part */
 
 void THCTensor_(zerosLike)(THCState *state, THCTensor *r_, THCTensor *input)
 {

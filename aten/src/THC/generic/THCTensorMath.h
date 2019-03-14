@@ -5,7 +5,7 @@
 THC_API void THCTensor_(fill)(THCState *state, THCTensor *self, scalar_t value);
 THC_API void THCTensor_(zero)(THCState *state, THCTensor *self);
 
-#if !defined(TH_REAL_IS_BOOL) /* non bool only part */
+#if !defined(THC_REAL_IS_BOOL) /* non bool only part */
 
 THC_API ptrdiff_t THCTensor_(numel)(THCState *state, THCTensor *t);
 THC_API void THCTensor_(cat)(THCState *state, THCTensor *result, THCTensor *ta, THCTensor *tb, int dimension);
