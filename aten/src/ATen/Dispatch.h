@@ -12,6 +12,19 @@
 
 namespace detail {
 
+template <at::ScalarType N>
+struct ScalarTypeToCType;
+
+template<>
+struct ScalarTypeToCType<at::ScalarType::Half> {
+using type = at::Half;
+};
+
+template<>
+struct ScalarTypeToCType<at::ScalarType::Bool> {
+using type = bool;
+};
+
 inline at::ScalarType scalar_type(at::ScalarType s) {
   return s;
 }
@@ -186,19 +199,6 @@ inline void deprecated_AT_DISPATCH_ALL_TYPES_AND_HALF_AND_COMPLEX() {}
     }                                                                        \
   }()
 
-template <at::ScalarType N>
-struct ScalarTypeToCType;
-
-template<>
-struct ScalarTypeToCType<at::ScalarType::Half> {
-using type = at::Half;
-};
-
-template<>
-struct ScalarTypeToCType<at::ScalarType::Bool> {
-using type = bool;
-};
-
 #define AT_DISPATCH_ALL_TYPES_AND(SCALARTYPE, TYPE, NAME, ...)                       \
   [&] {                                                                              \
     switch (TYPE) {                                                                  \
@@ -209,7 +209,7 @@ using type = bool;
       AT_PRIVATE_CASE_TYPE(at::ScalarType::Int, int32_t, __VA_ARGS__)                \
       AT_PRIVATE_CASE_TYPE(at::ScalarType::Long, int64_t, __VA_ARGS__)               \
       AT_PRIVATE_CASE_TYPE(at::ScalarType::Short, int16_t, __VA_ARGS__)              \
-      AT_PRIVATE_CASE_TYPE(SCALARTYPE, ScalarTypeToCType<SCALARTYPE>::type, __VA_ARGS__) \
+      AT_PRIVATE_CASE_TYPE(SCALARTYPE, ::detail::ScalarTypeToCType<SCALARTYPE>::type, __VA_ARGS__) \
       default:                                                                       \
         AT_ERROR(#NAME, " not implemented for '", toString(TYPE), "'");              \
     }                                                                                \
@@ -225,8 +225,8 @@ using type = bool;
       AT_PRIVATE_CASE_TYPE(at::ScalarType::Int, int32_t, __VA_ARGS__)                           \
       AT_PRIVATE_CASE_TYPE(at::ScalarType::Long, int64_t, __VA_ARGS__)                          \
       AT_PRIVATE_CASE_TYPE(at::ScalarType::Short, int16_t, __VA_ARGS__)                         \
-      AT_PRIVATE_CASE_TYPE(SCALARTYPE1, ScalarTypeToCType<SCALARTYPE1>::type, __VA_ARGS__) \
-      AT_PRIVATE_CASE_TYPE(SCALARTYPE2, ScalarTypeToCType<SCALARTYPE2>::type, __VA_ARGS__) \
+      AT_PRIVATE_CASE_TYPE(SCALARTYPE1, ::detail::ScalarTypeToCType<SCALARTYPE1>::type, __VA_ARGS__) \
+      AT_PRIVATE_CASE_TYPE(SCALARTYPE2, ::detail::ScalarTypeToCType<SCALARTYPE2>::type, __VA_ARGS__) \
       AT_PRIVATE_CASE_TYPE(                                                                     \
           at::ScalarType::ComplexFloat, std::complex<float>, __VA_ARGS__)                       \
       AT_PRIVATE_CASE_TYPE(                                                                     \
