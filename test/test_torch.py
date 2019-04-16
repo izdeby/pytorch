@@ -7576,6 +7576,13 @@ class _TestTorchMixin(object):
                 dst2 += [src[i]]
         self.assertEqual(dst, torch.Tensor(dst2), 0)
 
+        # test bool tensor case
+        for device in torch.testing.get_all_device_types():
+            x = torch.tensor([True, True, False, False], device=device)
+            mask = torch.tensor([1, 0, 1, 0], dtype=torch.bool, device=device)
+            res = torch.masked_select(x, mask)
+            self.assertEqual(res, torch.tensor([True, False], device=device))
+
     def test_masked_fill(self):
         num_dest = 10
         dst = torch.randn(num_dest)
@@ -7587,6 +7594,13 @@ class _TestTorchMixin(object):
             if mask[i]:
                 dst2[i] = val
         self.assertEqual(dst, dst2, 0)
+
+        # test bool tensor case
+        for device in torch.testing.get_all_device_types():
+            x = torch.tensor([True, True, False, False], device=device)
+            mask = torch.tensor([0, 0, 1, 1], dtype=torch.bool, device=device)
+            res = x.masked_fill(mask, 1)
+            self.assertEqual(res, torch.tensor([True, True, True, True], device=device))
 
         # test non-contiguous case
         dst = torch.randn(num_dest, num_dest, num_dest).permute((2, 0, 1))

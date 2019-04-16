@@ -51,11 +51,19 @@ Tensor& zero_(Tensor& self) {
 }
 
 Tensor & masked_fill_(Tensor& self, const Tensor & mask, Scalar value) {
-  return at::legacy::th::_th_masked_fill_(self, mask, value);
+  if (mask.dtype() == at::ScalarType::Byte) {
+    return at::legacy::th::_th_masked_fill_(self, mask, value);
+  } else {
+    return at::legacy::th::_th_masked_fill_bool_(self, mask, value);
+  }
 }
 
 Tensor & masked_fill_(Tensor& self, const Tensor & mask, const Tensor & value) {
-  return at::legacy::th::_th_masked_fill_(self, mask, value);
+  if (mask.dtype() == at::ScalarType::Byte) {
+    return at::legacy::th::_th_masked_fill_(self, mask, value);
+  } else {
+    return at::legacy::th::_th_masked_fill_bool_(self, mask, value);
+  }
 }
 
 Tensor & masked_scatter_(Tensor& self, const Tensor & mask, const Tensor & source) {
@@ -381,7 +389,11 @@ Tensor & masked_select_out(Tensor & result, const Tensor & self, const Tensor & 
 }
 
 Tensor masked_select(const Tensor & self, const Tensor & mask) {
-  return at::legacy::th::_th_masked_select(self, mask);
+  if (mask.dtype() == at::ScalarType::Byte) {
+    return at::legacy::th::_th_masked_select(self, mask);
+  } else {
+    return at::legacy::th::_th_masked_select_bool(self, mask);
+  }
 }
 
 Tensor & nonzero_out(Tensor & result, const Tensor & self) {
