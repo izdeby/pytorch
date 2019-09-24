@@ -345,3 +345,21 @@ TEST(BasicTest, BasicTestCUDA) {
     test(CUDA(kFloat));
   }
 }
+
+TEST(BasicTest, AAAA) {
+  Tensor tensor = bartlett_window(0);
+  std::cout << "\n --> " << tensor << std::endl;
+
+  //Tensor tensor2 = bartlett_window(0, c10::nullopt, c10::nullopt, c10::nullopt, true);
+  //std::cout << "\n --> " << tensor2 << std::endl;
+
+  Tensor tensor3 = bartlett_window(0, kHalf);
+  //std::cout << "\n --> " << tensor3 << std::endl;
+
+  Tensor tensor4 = bartlett_window(0, kFloat);
+  //std::cout << "\n --> " << tensor4 << std::endl;
+
+  Tensor tensor5 = bartlett_window(0, kDouble);
+  //std::cout << "\n --> " << tensor5 << std::endl;
+
+}

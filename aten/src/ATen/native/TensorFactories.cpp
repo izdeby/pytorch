@@ -713,8 +713,26 @@ Tensor zeros_like(const Tensor& self, const TensorOptions& options) {
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~ bartlett_window ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Tensor bartlett_window(int64_t window_length, const TensorOptions& options) {
-  return native::bartlett_window(window_length, /*periodic=*/true, options);
+Tensor bartlett_window(int64_t window_length, c10::optional<c10::ScalarType> dtype, c10::optional<c10::Layout> layout, c10::optional<c10::Device> device, c10::optional<bool> pin_memory) {
+  std::cout << "\n\n call from TensorFactories.cpp" << std::cout;
+  //std::cout << dtype << std::endl;
+
+  //dtype == at::ScalarType::Undefined) ?
+  //          torch::tensors::get_default_scalar_type() : scalartype;
+  //auto memory_format = optional_memory_format.value_or(MemoryFormat::Contiguous);
+
+  /*
+
+  dtype = dtype.value_or(typeMetaToScalarType(caffe2::get_default_dtype()));
+  layout = Layout::Strided;
+  device = Device(kCPU);
+
+  auto options = TensorOptions().dtype(dtype).device(device).layout(layout).pinned_memory(pin_memory);
+
+  return native::bartlett_window(window_length, true, options);
+  */
+  std::cout << "\n\n call from TensorFactories.cpp 2 " << std::cout;
+  return native::zeros(0);
 }
 
 Tensor bartlett_window(

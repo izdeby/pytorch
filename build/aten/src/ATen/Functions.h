@@ -102,6 +102,7 @@ static inline Tensor & _baddbmm_mkl_(Tensor & self, const Tensor & batch1, const
 static inline Tensor & baddbmm_out(Tensor & out, const Tensor & self, const Tensor & batch1, const Tensor & batch2, Scalar beta=1, Scalar alpha=1);
 static inline Tensor bartlett_window(int64_t window_length, const TensorOptions & options={});
 static inline Tensor bartlett_window(int64_t window_length, bool periodic, const TensorOptions & options={});
+static inline Tensor bartlett_window(int64_t window_length, c10::optional<ScalarType> dtype, c10::optional<Layout> layout, c10::optional<Device> device, c10::optional<bool> pin_memory);
 static inline Tensor batch_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, const Tensor & running_mean, const Tensor & running_var, bool training, double momentum, double eps, bool cudnn_enabled);
 static inline std::tuple<Tensor,Tensor,Tensor,int64_t> _batch_norm_impl_index(const Tensor & input, const Tensor & weight, const Tensor & bias, const Tensor & running_mean, const Tensor & running_var, bool training, double momentum, double eps, bool cudnn_enabled);
 static inline std::tuple<Tensor,Tensor,Tensor> _batch_norm_impl_index_backward(int64_t impl_index, const Tensor & input, const Tensor & grad_output, const Tensor & weight, const Tensor & running_mean, const Tensor & running_var, const Tensor & save_mean, const Tensor & save_var_transform, bool train, double eps, std::array<bool,3> output_mask);
@@ -1363,7 +1364,7 @@ static inline std::vector<Tensor> align_tensors(TensorList tensors) {
 static inline std::tuple<Tensor,Tensor> _cudnn_ctc_loss(const Tensor & log_probs, const Tensor & targets, IntArrayRef input_lengths, IntArrayRef target_lengths, int64_t blank, bool deterministic, bool zero_infinity) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(log_probs, targets)))) {
-    
+
         default:
             AT_ERROR("_cudnn_ctc_loss not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(log_probs, targets)));
     }
@@ -1377,7 +1378,7 @@ static inline std::tuple<Tensor,Tensor> _cudnn_ctc_loss(const Tensor & log_probs
 static inline Tensor _cudnn_rnn_flatten_weight(TensorList weight_arr, int64_t weight_stride0, int64_t input_size, int64_t mode, int64_t hidden_size, int64_t num_layers, bool batch_first, bool bidirectional) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(weight_arr)))) {
-    
+
         default:
             AT_ERROR("_cudnn_rnn_flatten_weight not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(weight_arr)));
     }
@@ -1391,7 +1392,7 @@ static inline Tensor _cudnn_rnn_flatten_weight(TensorList weight_arr, int64_t we
 static inline std::tuple<Tensor,Tensor,Tensor,Tensor,Tensor> _cudnn_rnn(const Tensor & input, TensorList weight, int64_t weight_stride0, const Tensor & weight_buf, const Tensor & hx, const Tensor & cx, int64_t mode, int64_t hidden_size, int64_t num_layers, bool batch_first, double dropout, bool train, bool bidirectional, IntArrayRef batch_sizes, const Tensor & dropout_state) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input, weight, weight_buf, hx, cx, dropout_state)))) {
-    
+
         default:
             AT_ERROR("_cudnn_rnn not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input, weight, weight_buf, hx, cx, dropout_state)));
     }
@@ -1403,7 +1404,7 @@ static inline std::tuple<Tensor,Tensor,Tensor,Tensor,Tensor> _cudnn_rnn(const Te
 static inline std::tuple<Tensor,Tensor,Tensor,std::vector<Tensor>> _cudnn_rnn_backward(const Tensor & input, TensorList weight, int64_t weight_stride0, const Tensor & weight_buf, const Tensor & hx, const Tensor & cx, const Tensor & output, const Tensor & grad_output, const Tensor & grad_hy, const Tensor & grad_cy, int64_t mode, int64_t hidden_size, int64_t num_layers, bool batch_first, double dropout, bool train, bool bidirectional, IntArrayRef batch_sizes, const Tensor & dropout_state, const Tensor & reserve, std::array<bool,4> output_mask) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input, weight, weight_buf, hx, cx, output, grad_output, grad_hy, grad_cy, dropout_state, reserve)))) {
-    
+
         default:
             AT_ERROR("_cudnn_rnn_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input, weight, weight_buf, hx, cx, output, grad_output, grad_hy, grad_cy, dropout_state, reserve)));
     }
@@ -1415,7 +1416,7 @@ static inline std::tuple<Tensor,Tensor,Tensor,std::vector<Tensor>> _cudnn_rnn_ba
 static inline Tensor _cudnn_init_dropout_state(double dropout, bool train, int64_t dropout_seed, const TensorOptions & options) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(options)))) {
-    
+
         default:
             AT_ERROR("_cudnn_init_dropout_state not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(options)));
     }
@@ -1438,7 +1439,7 @@ static inline int64_t _debug_has_internal_overlap(const Tensor & self) {
 static inline std::tuple<Tensor,Tensor> _fused_dropout(const Tensor & self, double p, Generator * generator) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self)))) {
-    
+
         default:
             AT_ERROR("_fused_dropout not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self)));
     }
@@ -1450,7 +1451,7 @@ static inline std::tuple<Tensor,Tensor> _fused_dropout(const Tensor & self, doub
 static inline Tensor _masked_scale(const Tensor & self, const Tensor & mask, double scale) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, mask)))) {
-    
+
         default:
             AT_ERROR("_masked_scale not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, mask)));
     }
@@ -2113,15 +2114,33 @@ static inline Tensor & baddbmm_out(Tensor & out, const Tensor & self, const Tens
     return table->getOp<Tensor & (Tensor &, const Tensor &, const Tensor &, const Tensor &, Scalar, Scalar)>(at::detail::multi_dispatch_tensor_type_set(out, self, batch1, batch2))(out, self, batch1, batch2, beta, alpha);
 #endif
 }
+
 static inline Tensor bartlett_window(int64_t window_length, const TensorOptions & options) {
+    return bartlett_window(window_length, typeMetaToScalarType(options.dtype()), options.layout(), options.device(), options.pinned_memory());
+}
+static inline Tensor bartlett_window(int64_t window_length, c10::optional<ScalarType> dtype, c10::optional<Layout> layout, c10::optional<Device> device, c10::optional<bool> pin_memory) {
+
+  dtype = typeMetaToScalarType(caffe2::get_default_dtype());
+  layout = Layout::Strided;
+  device = Device(kCPU);
+
+    const auto options = TensorOptions()
+        .dtype(dtype)
+        .device(device)
+        .layout(layout)
+        .requires_grad(false)
+        .pinned_memory(pin_memory);
+
 #ifdef USE_STATIC_DISPATCH
     return TypeDefault::bartlett_window(window_length, options);
 #else
-    globalLegacyTypeDispatch().initForTensorTypeSet(at::detail::multi_dispatch_tensor_type_set(options));
+    globalLegacyTypeDispatch().initForTensorTypeSet(options.type_set());
     static auto table = globalATenDispatch().getOpTable("aten::bartlett_window(int window_length, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor");
-    return table->getOp<Tensor (int64_t, const TensorOptions &)>(at::detail::multi_dispatch_tensor_type_set(options))(window_length, options);
+    return table->getOp<Tensor (int64_t, const TensorOptions &)>(options.type_set())(window_length, options);
 #endif
 }
+
+
 static inline Tensor bartlett_window(int64_t window_length, bool periodic, const TensorOptions & options) {
 #ifdef USE_STATIC_DISPATCH
     return TypeDefault::bartlett_window(window_length, periodic, options);
@@ -2698,7 +2717,7 @@ static inline Tensor conv_transpose3d(const Tensor & input, const Tensor & weigh
 static inline Tensor _copy_from(const Tensor & self, const Tensor & dst, bool non_blocking) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, dst)))) {
-    
+
         default:
             AT_ERROR("_copy_from not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, dst)));
     }
@@ -2802,7 +2821,7 @@ static inline Tensor cosine_embedding_loss(const Tensor & input1, const Tensor &
 static inline Tensor cudnn_affine_grid_generator(const Tensor & theta, int64_t N, int64_t C, int64_t H, int64_t W) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(theta)))) {
-    
+
         default:
             AT_ERROR("cudnn_affine_grid_generator not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(theta)));
     }
@@ -2816,7 +2835,7 @@ static inline Tensor cudnn_affine_grid_generator(const Tensor & theta, int64_t N
 static inline Tensor cudnn_affine_grid_generator_backward(const Tensor & grad, int64_t N, int64_t C, int64_t H, int64_t W) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad)))) {
-    
+
         default:
             AT_ERROR("cudnn_affine_grid_generator_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad)));
     }
@@ -2830,7 +2849,7 @@ static inline Tensor cudnn_affine_grid_generator_backward(const Tensor & grad, i
 static inline std::tuple<Tensor,Tensor,Tensor> cudnn_batch_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, const Tensor & running_mean, const Tensor & running_var, bool training, double exponential_average_factor, double epsilon) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input, weight, bias, running_mean, running_var)))) {
-    
+
         default:
             AT_ERROR("cudnn_batch_norm not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input, weight, bias, running_mean, running_var)));
     }
@@ -2842,7 +2861,7 @@ static inline std::tuple<Tensor,Tensor,Tensor> cudnn_batch_norm(const Tensor & i
 static inline std::tuple<Tensor,Tensor,Tensor> cudnn_batch_norm_backward(const Tensor & input, const Tensor & grad_output, const Tensor & weight, const Tensor & running_mean, const Tensor & running_var, const Tensor & save_mean, const Tensor & save_var, double epsilon) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input, grad_output, weight, running_mean, running_var, save_mean, save_var)))) {
-    
+
         default:
             AT_ERROR("cudnn_batch_norm_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input, grad_output, weight, running_mean, running_var, save_mean, save_var)));
     }
@@ -2854,7 +2873,7 @@ static inline std::tuple<Tensor,Tensor,Tensor> cudnn_batch_norm_backward(const T
 static inline Tensor cudnn_convolution(const Tensor & self, const Tensor & weight, const Tensor & bias, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, weight, bias)))) {
-    
+
         default:
             AT_ERROR("cudnn_convolution not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, weight, bias)));
     }
@@ -2866,7 +2885,7 @@ static inline Tensor cudnn_convolution(const Tensor & self, const Tensor & weigh
 static inline Tensor cudnn_convolution_backward_input(IntArrayRef self_size, const Tensor & grad_output, const Tensor & weight, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_output, weight)))) {
-    
+
         default:
             AT_ERROR("cudnn_convolution_backward_input not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_output, weight)));
     }
@@ -2880,7 +2899,7 @@ static inline Tensor cudnn_convolution_backward_input(IntArrayRef self_size, con
 static inline std::tuple<Tensor,Tensor,Tensor> cudnn_convolution_backward(const Tensor & self, const Tensor & grad_output, const Tensor & weight, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, std::array<bool,3> output_mask) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, grad_output, weight)))) {
-    
+
         default:
             AT_ERROR("cudnn_convolution_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, grad_output, weight)));
     }
@@ -2894,7 +2913,7 @@ static inline std::tuple<Tensor,Tensor,Tensor> cudnn_convolution_backward(const 
 static inline Tensor cudnn_convolution_backward_bias(const Tensor & grad_output) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_output)))) {
-    
+
         default:
             AT_ERROR("cudnn_convolution_backward_bias not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_output)));
     }
@@ -2908,7 +2927,7 @@ static inline Tensor cudnn_convolution_backward_bias(const Tensor & grad_output)
 static inline Tensor cudnn_convolution_backward_weight(IntArrayRef weight_size, const Tensor & grad_output, const Tensor & self, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_output, self)))) {
-    
+
         default:
             AT_ERROR("cudnn_convolution_backward_weight not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_output, self)));
     }
@@ -2922,7 +2941,7 @@ static inline Tensor cudnn_convolution_backward_weight(IntArrayRef weight_size, 
 static inline Tensor cudnn_convolution_transpose(const Tensor & self, const Tensor & weight, const Tensor & bias, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, weight, bias)))) {
-    
+
         default:
             AT_ERROR("cudnn_convolution_transpose not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, weight, bias)));
     }
@@ -2934,7 +2953,7 @@ static inline Tensor cudnn_convolution_transpose(const Tensor & self, const Tens
 static inline std::tuple<Tensor,Tensor,Tensor> cudnn_convolution_transpose_backward(const Tensor & self, const Tensor & grad_output, const Tensor & weight, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, std::array<bool,3> output_mask) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, grad_output, weight)))) {
-    
+
         default:
             AT_ERROR("cudnn_convolution_transpose_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, grad_output, weight)));
     }
@@ -2948,7 +2967,7 @@ static inline std::tuple<Tensor,Tensor,Tensor> cudnn_convolution_transpose_backw
 static inline Tensor cudnn_convolution_transpose_backward_bias(const Tensor & grad_output) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_output)))) {
-    
+
         default:
             AT_ERROR("cudnn_convolution_transpose_backward_bias not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_output)));
     }
@@ -2962,7 +2981,7 @@ static inline Tensor cudnn_convolution_transpose_backward_bias(const Tensor & gr
 static inline Tensor cudnn_convolution_transpose_backward_input(const Tensor & grad_output, const Tensor & weight, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_output, weight)))) {
-    
+
         default:
             AT_ERROR("cudnn_convolution_transpose_backward_input not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_output, weight)));
     }
@@ -2976,7 +2995,7 @@ static inline Tensor cudnn_convolution_transpose_backward_input(const Tensor & g
 static inline Tensor cudnn_convolution_transpose_backward_weight(IntArrayRef weight_size, const Tensor & grad_output, const Tensor & self, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_output, self)))) {
-    
+
         default:
             AT_ERROR("cudnn_convolution_transpose_backward_weight not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_output, self)));
     }
@@ -2990,7 +3009,7 @@ static inline Tensor cudnn_convolution_transpose_backward_weight(IntArrayRef wei
 static inline Tensor cudnn_grid_sampler(const Tensor & self, const Tensor & grid) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, grid)))) {
-    
+
         default:
             AT_ERROR("cudnn_grid_sampler not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, grid)));
     }
@@ -3004,7 +3023,7 @@ static inline Tensor cudnn_grid_sampler(const Tensor & self, const Tensor & grid
 static inline std::tuple<Tensor,Tensor> cudnn_grid_sampler_backward(const Tensor & self, const Tensor & grid, const Tensor & grad_output) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, grid, grad_output)))) {
-    
+
         default:
             AT_ERROR("cudnn_grid_sampler_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, grid, grad_output)));
     }
@@ -4401,7 +4420,7 @@ static inline Tensor linear(const Tensor & input, const Tensor & weight, const T
 static inline Tensor mkldnn_linear(const Tensor & input, const Tensor & weight, const Tensor & bias) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input, weight, bias)))) {
-    
+
         default:
             AT_ERROR("mkldnn_linear not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input, weight, bias)));
     }
@@ -4959,7 +4978,7 @@ static inline Tensor max_pool2d(const Tensor & self, IntArrayRef kernel_size, In
 static inline Tensor mkldnn_max_pool2d(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self)))) {
-    
+
         default:
             AT_ERROR("mkldnn_max_pool2d not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self)));
     }
@@ -5177,7 +5196,7 @@ static inline std::tuple<Tensor,Tensor,Tensor> mkldnn_convolution_backward(const
 static inline std::tuple<Tensor,Tensor,Tensor> miopen_batch_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, const Tensor & running_mean, const Tensor & running_var, bool training, double exponential_average_factor, double epsilon) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input, weight, bias, running_mean, running_var)))) {
-    
+
         default:
             AT_ERROR("miopen_batch_norm not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input, weight, bias, running_mean, running_var)));
     }
@@ -5189,7 +5208,7 @@ static inline std::tuple<Tensor,Tensor,Tensor> miopen_batch_norm(const Tensor & 
 static inline std::tuple<Tensor,Tensor,Tensor> miopen_batch_norm_backward(const Tensor & input, const Tensor & grad_output, const Tensor & weight, const Tensor & running_mean, const Tensor & running_var, const Tensor & save_mean, const Tensor & save_var, double epsilon) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input, grad_output, weight, running_mean, running_var, save_mean, save_var)))) {
-    
+
         default:
             AT_ERROR("miopen_batch_norm_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input, grad_output, weight, running_mean, running_var, save_mean, save_var)));
     }
@@ -5201,7 +5220,7 @@ static inline std::tuple<Tensor,Tensor,Tensor> miopen_batch_norm_backward(const 
 static inline Tensor miopen_convolution(const Tensor & self, const Tensor & weight, const Tensor & bias, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, weight, bias)))) {
-    
+
         default:
             AT_ERROR("miopen_convolution not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, weight, bias)));
     }
@@ -5213,7 +5232,7 @@ static inline Tensor miopen_convolution(const Tensor & self, const Tensor & weig
 static inline Tensor miopen_convolution_backward_input(IntArrayRef self_size, const Tensor & grad_output, const Tensor & weight, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_output, weight)))) {
-    
+
         default:
             AT_ERROR("miopen_convolution_backward_input not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_output, weight)));
     }
@@ -5227,7 +5246,7 @@ static inline Tensor miopen_convolution_backward_input(IntArrayRef self_size, co
 static inline std::tuple<Tensor,Tensor,Tensor> miopen_convolution_backward(const Tensor & self, const Tensor & grad_output, const Tensor & weight, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, std::array<bool,3> output_mask) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, grad_output, weight)))) {
-    
+
         default:
             AT_ERROR("miopen_convolution_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, grad_output, weight)));
     }
@@ -5241,7 +5260,7 @@ static inline std::tuple<Tensor,Tensor,Tensor> miopen_convolution_backward(const
 static inline Tensor miopen_convolution_backward_bias(const Tensor & grad_output) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_output)))) {
-    
+
         default:
             AT_ERROR("miopen_convolution_backward_bias not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_output)));
     }
@@ -5255,7 +5274,7 @@ static inline Tensor miopen_convolution_backward_bias(const Tensor & grad_output
 static inline Tensor miopen_convolution_backward_weight(IntArrayRef weight_size, const Tensor & grad_output, const Tensor & self, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_output, self)))) {
-    
+
         default:
             AT_ERROR("miopen_convolution_backward_weight not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_output, self)));
     }
@@ -5269,7 +5288,7 @@ static inline Tensor miopen_convolution_backward_weight(IntArrayRef weight_size,
 static inline Tensor miopen_convolution_transpose(const Tensor & self, const Tensor & weight, const Tensor & bias, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, weight, bias)))) {
-    
+
         default:
             AT_ERROR("miopen_convolution_transpose not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, weight, bias)));
     }
@@ -5281,7 +5300,7 @@ static inline Tensor miopen_convolution_transpose(const Tensor & self, const Ten
 static inline std::tuple<Tensor,Tensor,Tensor> miopen_convolution_transpose_backward(const Tensor & self, const Tensor & grad_output, const Tensor & weight, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, std::array<bool,3> output_mask) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, grad_output, weight)))) {
-    
+
         default:
             AT_ERROR("miopen_convolution_transpose_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, grad_output, weight)));
     }
@@ -5295,7 +5314,7 @@ static inline std::tuple<Tensor,Tensor,Tensor> miopen_convolution_transpose_back
 static inline Tensor miopen_convolution_transpose_backward_input(const Tensor & grad_output, const Tensor & weight, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_output, weight)))) {
-    
+
         default:
             AT_ERROR("miopen_convolution_transpose_backward_input not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_output, weight)));
     }
@@ -5309,7 +5328,7 @@ static inline Tensor miopen_convolution_transpose_backward_input(const Tensor & 
 static inline Tensor miopen_convolution_transpose_backward_weight(IntArrayRef weight_size, const Tensor & grad_output, const Tensor & self, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_output, self)))) {
-    
+
         default:
             AT_ERROR("miopen_convolution_transpose_backward_weight not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_output, self)));
     }
@@ -5323,7 +5342,7 @@ static inline Tensor miopen_convolution_transpose_backward_weight(IntArrayRef we
 static inline Tensor miopen_depthwise_convolution(const Tensor & self, const Tensor & weight, const Tensor & bias, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, weight, bias)))) {
-    
+
         default:
             AT_ERROR("miopen_depthwise_convolution not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, weight, bias)));
     }
@@ -5335,7 +5354,7 @@ static inline Tensor miopen_depthwise_convolution(const Tensor & self, const Ten
 static inline Tensor miopen_depthwise_convolution_backward_input(IntArrayRef self_size, const Tensor & grad_output, const Tensor & weight, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_output, weight)))) {
-    
+
         default:
             AT_ERROR("miopen_depthwise_convolution_backward_input not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_output, weight)));
     }
@@ -5349,7 +5368,7 @@ static inline Tensor miopen_depthwise_convolution_backward_input(IntArrayRef sel
 static inline std::tuple<Tensor,Tensor,Tensor> miopen_depthwise_convolution_backward(const Tensor & self, const Tensor & grad_output, const Tensor & weight, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, std::array<bool,3> output_mask) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, grad_output, weight)))) {
-    
+
         default:
             AT_ERROR("miopen_depthwise_convolution_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, grad_output, weight)));
     }
@@ -5363,7 +5382,7 @@ static inline std::tuple<Tensor,Tensor,Tensor> miopen_depthwise_convolution_back
 static inline Tensor miopen_depthwise_convolution_backward_weight(IntArrayRef weight_size, const Tensor & grad_output, const Tensor & self, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_output, self)))) {
-    
+
         default:
             AT_ERROR("miopen_depthwise_convolution_backward_weight not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_output, self)));
     }
@@ -5377,7 +5396,7 @@ static inline Tensor miopen_depthwise_convolution_backward_weight(IntArrayRef we
 static inline std::tuple<Tensor,Tensor,Tensor,Tensor,Tensor> miopen_rnn(const Tensor & input, TensorList weight, int64_t weight_stride0, const Tensor & hx, const Tensor & cx, int64_t mode, int64_t hidden_size, int64_t num_layers, bool batch_first, double dropout, bool train, bool bidirectional, IntArrayRef batch_sizes, const Tensor & dropout_state) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input, weight, hx, cx, dropout_state)))) {
-    
+
         default:
             AT_ERROR("miopen_rnn not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input, weight, hx, cx, dropout_state)));
     }
@@ -5389,7 +5408,7 @@ static inline std::tuple<Tensor,Tensor,Tensor,Tensor,Tensor> miopen_rnn(const Te
 static inline std::tuple<Tensor,Tensor,Tensor,std::vector<Tensor>> miopen_rnn_backward(const Tensor & input, TensorList weight, int64_t weight_stride0, const Tensor & weight_buf, const Tensor & hx, const Tensor & cx, const Tensor & output, const Tensor & grad_output, const Tensor & grad_hy, const Tensor & grad_cy, int64_t mode, int64_t hidden_size, int64_t num_layers, bool batch_first, double dropout, bool train, bool bidirectional, IntArrayRef batch_sizes, const Tensor & dropout_state, const Tensor & reserve, std::array<bool,4> output_mask) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input, weight, weight_buf, hx, cx, output, grad_output, grad_hy, grad_cy, dropout_state, reserve)))) {
-    
+
         default:
             AT_ERROR("miopen_rnn_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input, weight, weight_buf, hx, cx, output, grad_output, grad_hy, grad_cy, dropout_state, reserve)));
     }
@@ -5575,7 +5594,7 @@ static inline std::tuple<Tensor,Tensor,Tensor> native_batch_norm(const Tensor & 
 static inline std::tuple<Tensor,Tensor> batch_norm_stats(const Tensor & input, double eps) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input)))) {
-    
+
         default:
             AT_ERROR("batch_norm_stats not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input)));
     }
@@ -5589,7 +5608,7 @@ static inline std::tuple<Tensor,Tensor> batch_norm_stats(const Tensor & input, d
 static inline Tensor batch_norm_elemt(const Tensor & input, const Tensor & weight, const Tensor & bias, const Tensor & mean, const Tensor & invstd, double eps) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input, weight, bias, mean, invstd)))) {
-    
+
         default:
             AT_ERROR("batch_norm_elemt not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input, weight, bias, mean, invstd)));
     }
@@ -5601,7 +5620,7 @@ static inline Tensor batch_norm_elemt(const Tensor & input, const Tensor & weigh
 static inline std::tuple<Tensor,Tensor> batch_norm_gather_stats(const Tensor & input, const Tensor & mean, const Tensor & invstd, const Tensor & running_mean, const Tensor & running_var, double momentum, double eps, int64_t count) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input, mean, invstd, running_mean, running_var)))) {
-    
+
         default:
             AT_ERROR("batch_norm_gather_stats not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input, mean, invstd, running_mean, running_var)));
     }
@@ -5613,7 +5632,7 @@ static inline std::tuple<Tensor,Tensor> batch_norm_gather_stats(const Tensor & i
 static inline std::tuple<Tensor,Tensor> batch_norm_gather_stats_with_counts(const Tensor & input, const Tensor & mean, const Tensor & invstd, const Tensor & running_mean, const Tensor & running_var, double momentum, double eps, IntArrayRef counts) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input, mean, invstd, running_mean, running_var)))) {
-    
+
         default:
             AT_ERROR("batch_norm_gather_stats_with_counts not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input, mean, invstd, running_mean, running_var)));
     }
@@ -5639,7 +5658,7 @@ static inline std::tuple<Tensor,Tensor,Tensor> native_batch_norm_backward(const 
 static inline std::tuple<Tensor,Tensor,Tensor,Tensor> batch_norm_backward_reduce(const Tensor & grad_out, const Tensor & input, const Tensor & mean, const Tensor & invstd, const Tensor & weight, bool input_g, bool weight_g, bool bias_g) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_out, input, mean, invstd, weight)))) {
-    
+
         default:
             AT_ERROR("batch_norm_backward_reduce not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_out, input, mean, invstd, weight)));
     }
@@ -5651,7 +5670,7 @@ static inline std::tuple<Tensor,Tensor,Tensor,Tensor> batch_norm_backward_reduce
 static inline Tensor batch_norm_backward_elemt(const Tensor & grad_out, const Tensor & input, const Tensor & mean, const Tensor & invstd, const Tensor & weight, const Tensor & mean_dy, const Tensor & mean_dy_xmu) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_out, input, mean, invstd, weight, mean_dy, mean_dy_xmu)))) {
-    
+
         default:
             AT_ERROR("batch_norm_backward_elemt not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_out, input, mean, invstd, weight, mean_dy, mean_dy_xmu)));
     }
@@ -6329,7 +6348,7 @@ static inline Tensor reshape(const Tensor & self, IntArrayRef shape) {
 static inline Tensor _mkldnn_reshape(const Tensor & self, IntArrayRef shape) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self)))) {
-    
+
         default:
             AT_ERROR("_mkldnn_reshape not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self)));
     }
@@ -7344,7 +7363,7 @@ static inline Tensor transpose(const Tensor & self, Dimname dim0, Dimname dim1) 
 static inline Tensor _mkldnn_transpose(const Tensor & self, int64_t dim0, int64_t dim1) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self)))) {
-    
+
         default:
             AT_ERROR("_mkldnn_transpose not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self)));
     }
@@ -7358,7 +7377,7 @@ static inline Tensor _mkldnn_transpose(const Tensor & self, int64_t dim0, int64_
 static inline Tensor & _mkldnn_transpose_(Tensor & self, int64_t dim0, int64_t dim1) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self)))) {
-    
+
         default:
             AT_ERROR("_mkldnn_transpose_ not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self)));
     }
@@ -7742,7 +7761,7 @@ static inline Tensor _weight_norm(const Tensor & v, const Tensor & g, int64_t di
 static inline std::tuple<Tensor,Tensor> _weight_norm_cuda_interface(const Tensor & v, const Tensor & g, int64_t dim) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(v, g)))) {
-    
+
         default:
             AT_ERROR("_weight_norm_cuda_interface not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(v, g)));
     }
@@ -7756,7 +7775,7 @@ static inline std::tuple<Tensor,Tensor> _weight_norm_cuda_interface(const Tensor
 static inline std::tuple<Tensor,Tensor> _weight_norm_cuda_interface_backward(const Tensor & grad_w, const Tensor & saved_v, const Tensor & saved_g, const Tensor & saved_norms, int64_t dim) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_w, saved_v, saved_g, saved_norms)))) {
-    
+
         default:
             AT_ERROR("_weight_norm_cuda_interface_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_w, saved_v, saved_g, saved_norms)));
     }
@@ -8485,7 +8504,7 @@ static inline std::vector<Tensor> unbind(const Tensor & self, Dimname dim) {
 static inline Tensor mkldnn_reorder_conv2d_weight(const Tensor & self, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self)))) {
-    
+
         default:
             AT_ERROR("mkldnn_reorder_conv2d_weight not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self)));
     }
@@ -8771,7 +8790,7 @@ static inline Scalar _local_scalar_dense(const Tensor & self) {
 static inline std::tuple<Tensor,Tensor,Tensor> _thnn_fused_lstm_cell(const Tensor & input_gates, const Tensor & hidden_gates, const Tensor & cx, const Tensor & input_bias, const Tensor & hidden_bias) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input_gates, hidden_gates, cx, input_bias, hidden_bias)))) {
-    
+
         default:
             AT_ERROR("_thnn_fused_lstm_cell not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input_gates, hidden_gates, cx, input_bias, hidden_bias)));
     }
@@ -8783,7 +8802,7 @@ static inline std::tuple<Tensor,Tensor,Tensor> _thnn_fused_lstm_cell(const Tenso
 static inline std::tuple<Tensor,Tensor,Tensor,Tensor,Tensor> _thnn_fused_lstm_cell_backward(const Tensor & grad_hy, const Tensor & grad_cy, const Tensor & cx, const Tensor & cy, const Tensor & workspace, bool has_bias) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_hy, grad_cy, cx, cy, workspace)))) {
-    
+
         default:
             AT_ERROR("_thnn_fused_lstm_cell_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_hy, grad_cy, cx, cy, workspace)));
     }
@@ -8795,7 +8814,7 @@ static inline std::tuple<Tensor,Tensor,Tensor,Tensor,Tensor> _thnn_fused_lstm_ce
 static inline std::tuple<Tensor,Tensor> _thnn_fused_gru_cell(const Tensor & input_gates, const Tensor & hidden_gates, const Tensor & hx, const Tensor & input_bias, const Tensor & hidden_bias) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(input_gates, hidden_gates, hx, input_bias, hidden_bias)))) {
-    
+
         default:
             AT_ERROR("_thnn_fused_gru_cell not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(input_gates, hidden_gates, hx, input_bias, hidden_bias)));
     }
@@ -8807,7 +8826,7 @@ static inline std::tuple<Tensor,Tensor> _thnn_fused_gru_cell(const Tensor & inpu
 static inline std::tuple<Tensor,Tensor,Tensor,Tensor,Tensor> _thnn_fused_gru_cell_backward(const Tensor & grad_hy, const Tensor & workspace, bool has_bias) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_hy, workspace)))) {
-    
+
         default:
             AT_ERROR("_thnn_fused_gru_cell_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_hy, workspace)));
     }
@@ -12844,7 +12863,7 @@ static inline Tensor adaptive_avg_pool2d(const Tensor & self, IntArrayRef output
 static inline Tensor mkldnn_adaptive_avg_pool2d(const Tensor & self, IntArrayRef output_size) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self)))) {
-    
+
         default:
             AT_ERROR("mkldnn_adaptive_avg_pool2d not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self)));
     }
@@ -14545,7 +14564,7 @@ static inline Tensor thnn_conv_depthwise2d(const Tensor & self, const Tensor & w
 static inline Tensor & thnn_conv_depthwise2d_forward_out(Tensor & out, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(out, self, weight, bias)))) {
-    
+
         default:
             AT_ERROR("thnn_conv_depthwise2d_forward_out not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(out, self, weight, bias)));
     }
@@ -14557,7 +14576,7 @@ static inline Tensor & thnn_conv_depthwise2d_forward_out(Tensor & out, const Ten
 static inline Tensor thnn_conv_depthwise2d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(self, weight, bias)))) {
-    
+
         default:
             AT_ERROR("thnn_conv_depthwise2d_forward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(self, weight, bias)));
     }
@@ -14569,7 +14588,7 @@ static inline Tensor thnn_conv_depthwise2d_forward(const Tensor & self, const Te
 static inline std::tuple<Tensor &,Tensor &> thnn_conv_depthwise2d_backward_out(Tensor & grad_input, Tensor & grad_weight, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_input, grad_weight, grad_output, self, weight)))) {
-    
+
         default:
             AT_ERROR("thnn_conv_depthwise2d_backward_out not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_input, grad_weight, grad_output, self, weight)));
     }
@@ -14581,7 +14600,7 @@ static inline std::tuple<Tensor &,Tensor &> thnn_conv_depthwise2d_backward_out(T
 static inline std::tuple<Tensor,Tensor> thnn_conv_depthwise2d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, std::array<bool,2> output_mask) {
 #ifdef USE_STATIC_DISPATCH
     switch(tensorTypeIdToBackend(impl::dispatchTypeId(at::detail::multi_dispatch_tensor_type_set(grad_output, self, weight)))) {
-    
+
         default:
             AT_ERROR("thnn_conv_depthwise2d_backward not implemented for ", at::toString(at::detail::multi_dispatch_tensor_type_set(grad_output, self, weight)));
     }

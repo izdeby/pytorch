@@ -720,12 +720,17 @@ Tensor & TypeDefault::_baddbmm_mkl_(Tensor & self, const Tensor & batch1, const 
     const OptionalDeviceGuard device_guard(device_of(self));
     return at::native::_baddbmm_mkl_(self, batch1, batch2, beta, alpha);
 }
-Tensor TypeDefault::bartlett_window(int64_t window_length, const TensorOptions & options) {
-#ifdef BUILD_NAMEDTENSOR
+Tensor TypeDefault::bartlett_window(int64_t window_length, c10::optional<ScalarType> dtype, c10::optional<Layout> layout, c10::optional<Device> device, c10::optional<bool> pin_memory) {
+  dtype = dtype.value_or(typeMetaToScalarType(caffe2::get_default_dtype()));
+  layout = layout.value_or(Layout::Strided);
+  device = device.value_or(Device(kCPU));
 
-#endif
-    const DeviceGuard device_guard(options.device());
-    return at::native::bartlett_window(window_length, options);
+    std::cout << "hello from TypeDef" << std::endl;
+    const DeviceGuard device_guard(device.value());
+    std::cout << "hello from TypeDef2" << std::endl;
+    auto res = at::native::bartlett_window(window_length, dtype, layout, device, pin_memory);
+    std::cout << "hello from TypeDef3" << std::endl;
+    return res;
 }
 Tensor TypeDefault::bartlett_window(int64_t window_length, bool periodic, const TensorOptions & options) {
 #ifdef BUILD_NAMEDTENSOR
@@ -6214,7 +6219,7 @@ static auto registerer = torch::RegisterOperators()
     .aliasAnalysis(c10::AliasAnalysisKind::FROM_SCHEMA))
   .op(torch::RegisterOperators::options()
     .schema("aten::bartlett_window(int window_length, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor")
-    .impl_unboxedOnlyCatchAllKernel<Tensor (int64_t, const TensorOptions &), &TypeDefault::bartlett_window>()
+    .impl_unboxedOnlyCatchAllKernel<Tensor (int64_t, c10::optional<ScalarType>, c10::optional<Layout>, c10::optional<Device>, c10::optional<bool>), &TypeDefault::bartlett_window>()
     .aliasAnalysis(c10::AliasAnalysisKind::FROM_SCHEMA))
   .op(torch::RegisterOperators::options()
     .schema("aten::bartlett_window.periodic(int window_length, bool periodic, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor")
