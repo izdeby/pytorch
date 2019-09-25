@@ -721,15 +721,7 @@ Tensor & TypeDefault::_baddbmm_mkl_(Tensor & self, const Tensor & batch1, const 
     return at::native::_baddbmm_mkl_(self, batch1, batch2, beta, alpha);
 }
 Tensor TypeDefault::bartlett_window(int64_t window_length, c10::optional<ScalarType> dtype, c10::optional<Layout> layout, c10::optional<Device> device, c10::optional<bool> pin_memory) {
-  dtype = dtype.value_or(typeMetaToScalarType(caffe2::get_default_dtype()));
-  layout = layout.value_or(Layout::Strided);
-  device = device.value_or(Device(kCPU));
-
-    std::cout << "hello from TypeDef" << std::endl;
-    const DeviceGuard device_guard(device.value());
-    std::cout << "hello from TypeDef2" << std::endl;
     auto res = at::native::bartlett_window(window_length, dtype, layout, device, pin_memory);
-    std::cout << "hello from TypeDef3" << std::endl;
     return res;
 }
 Tensor TypeDefault::bartlett_window(int64_t window_length, bool periodic, const TensorOptions & options) {

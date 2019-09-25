@@ -348,18 +348,55 @@ TEST(BasicTest, BasicTestCUDA) {
 
 TEST(BasicTest, AAAA) {
   Tensor tensor = bartlett_window(0);
-  std::cout << "\n --> " << tensor << std::endl;
+  std::cout << "\n 1--> " << tensor << std::endl;
+  std::cout << " 1--> " << tensor.dtype() << std::endl;
+  std::cout << " 1--> " << tensor.device() << std::endl;
+  std::cout << " 1--> " << tensor.layout() << std::endl;
 
   //Tensor tensor2 = bartlett_window(0, c10::nullopt, c10::nullopt, c10::nullopt, true);
-  //std::cout << "\n --> " << tensor2 << std::endl;
+  //std::cout << "\n 2--> " << tensor2 << std::endl;
 
-  Tensor tensor3 = bartlett_window(0, kHalf);
-  //std::cout << "\n --> " << tensor3 << std::endl;
+  TensorOptions options = dtype(kFloat);
+  Tensor tensor3 = bartlett_window(0, options);
+  std::cout << "\n 3--> " << tensor3 << std::endl;
+  std::cout << " 3--> " << tensor3.dtype() << std::endl;
+  std::cout << " 3--> " << tensor3.device() << std::endl;
+  std::cout << " 3--> " << tensor3.layout() << std::endl;
 
-  Tensor tensor4 = bartlett_window(0, kFloat);
-  //std::cout << "\n --> " << tensor4 << std::endl;
+  options = dtype(kHalf).layout(kStrided);
+  Tensor tensor4 = bartlett_window(0, options);
+  std::cout << "\n 4--> " << tensor4 << std::endl;
+  std::cout << " 4--> " << tensor4.dtype() << std::endl;
+  std::cout << " 4--> " << tensor4.device() << std::endl;
+  std::cout << " 4--> " << tensor4.layout() << std::endl;
 
-  Tensor tensor5 = bartlett_window(0, kDouble);
-  //std::cout << "\n --> " << tensor5 << std::endl;
+  options = dtype(kDouble).layout(kStrided).device(kCPU);
+  Tensor tensor5 = bartlett_window(0, options);
+  std::cout << "\n 5--> " << tensor5 << std::endl;
+  std::cout << " 5--> " << tensor5.dtype() << std::endl;
+  std::cout << " 5--> " << tensor5.device() << std::endl;
+  std::cout << " 5--> " << tensor5.layout() << std::endl; 
+
+  /*
+  OUTPUT: 
+    1--> [ CPUFloatType{0} ]
+    1--> float
+    1--> cpu
+    1--> Strided
+
+    3--> [ CPUFloatType{0} ]
+    3--> float
+    3--> cpu
+    3--> Strided
+
+    4--> [ CPUHalfType{0} ]
+    4--> c10::Half
+    4--> cpu
+    4--> Strided
+
+    5--> [ CPUDoubleType{0} ]
+    5--> double
+    5--> cpu
+  */
 
 }

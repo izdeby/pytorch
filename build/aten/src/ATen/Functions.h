@@ -2119,24 +2119,12 @@ static inline Tensor bartlett_window(int64_t window_length, const TensorOptions 
     return bartlett_window(window_length, typeMetaToScalarType(options.dtype()), options.layout(), options.device(), options.pinned_memory());
 }
 static inline Tensor bartlett_window(int64_t window_length, c10::optional<ScalarType> dtype, c10::optional<Layout> layout, c10::optional<Device> device, c10::optional<bool> pin_memory) {
-
-  dtype = typeMetaToScalarType(caffe2::get_default_dtype());
-  layout = Layout::Strided;
-  device = Device(kCPU);
-
-    const auto options = TensorOptions()
-        .dtype(dtype)
-        .device(device)
-        .layout(layout)
-        .requires_grad(false)
-        .pinned_memory(pin_memory);
-
 #ifdef USE_STATIC_DISPATCH
-    return TypeDefault::bartlett_window(window_length, options);
+    return TypeDefault::bartlett_window(window_length, dtype, layout, device, pin_memory);
 #else
-    globalLegacyTypeDispatch().initForTensorTypeSet(options.type_set());
+    //globalLegacyTypeDispatch().initForTensorTypeSet(options.type_set()); <<<-------- THIS HAS TO BE FIXED + call down 2 lines
     static auto table = globalATenDispatch().getOpTable("aten::bartlett_window(int window_length, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor");
-    return table->getOp<Tensor (int64_t, const TensorOptions &)>(options.type_set())(window_length, options);
+    return table->getOp<Tensor (int64_t, c10::optional<ScalarType>, c10::optional<Layout>, c10::optional<Device>, c10::optional<bool>)>(TensorTypeSet(TensorTypeId::CPUTensorId))(window_length, dtype, layout, device, pin_memory);
 #endif
 }
 
